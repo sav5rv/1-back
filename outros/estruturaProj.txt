@@ -1,0 +1,140 @@
+nvm = 1.2.1
+node = 18.20.5
+npm = 10.8.2
+phyton = 312 - não está rodando no prompt
+
+Aqui está a estrutura completa e detalhada do projeto até o momento. Incluí todos os diretórios, arquivos, e uma breve descrição do conteúdo de cada um.
+
+---
+
+### **Estrutura do Projeto**
+```plaintext
+meu-projeto/
+├── config/
+│   ├── database.js            # Configuração do MongoDB
+│   ├── emailConfig.js         # Configuração do Nodemailer
+│   └── timezone.js            # Configuração para ajustar o fuso horário do MongoDB
+├── controllers/
+│   ├── usuarioController.js   # Lógica dos endpoints relacionados aos usuários
+│   └── acessoController.js    # Lógica dos endpoints relacionados aos acessos
+├── models/
+│   ├── Usuario.js             # Modelo Mongoose para usuários
+│   └── Acesso.js              # Modelo Mongoose para acessos
+├── routes/
+│   ├── usuarioRoutes.js       # Rotas relacionadas aos usuários
+│   └── acessoRoutes.js        # Rotas relacionadas aos acessos
+├── middlewares/
+│   ├── autenticar.js          # Middleware para verificar tokens JWT
+│   └── logger.js              # Middleware para registrar logs de requisição
+├── utils/
+│   └── emailService.js        # Serviço utilitário para envio de e-mails
+├── .env                       # Variáveis de ambiente
+├── .gitignore                 # Arquivos/diretórios a serem ignorados pelo Git
+├── package.json               # Dependências e scripts do projeto
+├── package-lock.json          # Versões exatas das dependências instaladas
+├── server.js                  # Inicialização do servidor Express
+└── README.md                  # Documentação básica do projeto
+```
+
+---
+
+### **Descrição Detalhada dos Arquivos**
+
+#### **1. Configurações**
+- **`config/database.js`**  
+  Configura a conexão com o MongoDB usando o `mongoose`.
+
+- **`config/emailConfig.js`**  
+  Configura o transporte do Nodemailer para envio de e-mails (atualmente usando Hotmail).
+
+- **`config/timezone.js`**  
+  Configura o MongoDB para usar o fuso horário correto (Brasília, UTC-3).
+
+#### **2. Controladores**
+- **`controllers/usuarioController.js`**  
+  Contém a lógica para:
+  - Criar usuários.
+  - Atualizar senha.
+  - Recuperar senha (com envio de link por e-mail).
+  - Redefinir senha com token.
+
+- **`controllers/acessoController.js`**  
+  Contém a lógica para:
+  - Registrar acessos (com sucesso ou falha).
+  - Listar todos os acessos.
+  - Listar acessos de um usuário específico.
+
+#### **3. Modelos**
+- **`models/Usuario.js`**  
+  Define o esquema do usuário:
+  - Campos: `nome`, `email`, `senha`, `createdAt`, etc.
+  - Métodos: hash de senha e comparação de senha.
+
+- **`models/Acesso.js`**  
+  Define o esquema do acesso:
+  - Campos: `usuarioId`, `status`, `ip`, `nomeMaquina`, `dataHora`, etc.
+
+#### **4. Rotas**
+- **`routes/usuarioRoutes.js`**  
+  Define endpoints relacionados aos usuários:
+  - `POST /usuarios` - Criar usuário.
+  - `POST /usuarios/trocar-senha` - Trocar senha.
+  - `POST /usuarios/recuperar-senha` - Enviar link de recuperação.
+  - `POST /usuarios/redefinir-senha/:token` - Redefinir senha.
+
+- **`routes/acessoRoutes.js`**  
+  Define endpoints relacionados aos acessos:
+  - `POST /acessos` - Registrar acesso.
+  - `GET /acessos` - Listar todos os acessos.
+  - `GET /acessos/:usuarioId` - Listar acessos de um usuário específico.
+
+#### **5. Middlewares**
+- **`middlewares/autenticar.js`**  
+  Middleware para verificar o token JWT em rotas protegidas.
+
+- **`middlewares/logger.js`**  
+  Middleware para registrar logs das requisições no console (útil para debugging).
+
+#### **6. Utilitários**
+- **`utils/emailService.js`**  
+  Serviço para envio de e-mails usando o Nodemailer.
+
+#### **7. Outros Arquivos**
+- **`.env`**  
+  Contém variáveis de ambiente, como:
+  - `DATABASE_URL`, `HOTMAIL_USER`, `HOTMAIL_PASS`, `SECRET_KEY`.
+
+- **`server.js`**  
+  Configura o servidor Express:
+  - Carrega middlewares globais, conecta ao MongoDB e configura as rotas.
+
+- **`README.md`**  
+  Documentação básica do projeto, incluindo como configurar e executar.
+
+---
+
+### **Dependências no `package.json`**
+```json
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.0",
+    "nodemailer": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
+```
+
+---
+
+### **Próximos Passos**
+- Testar endpoints individualmente usando uma ferramenta como **Postman** ou **Insomnia**.
+- Criar uma interface front-end para interagir com os endpoints.
+- Adicionar testes automatizados para validar a API.
+
+Se precisar de ajuda com algo específico, como testes ou novos recursos, é só avisar! 😊
