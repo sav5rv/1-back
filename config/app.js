@@ -29,5 +29,11 @@ app.use('/acessos', acessoRoutes);
 const acessoAbertura = require('../routes/abertura');
 app.use('/', acessoAbertura);
 
+const patioRoutes = require('../routes/patios');
+app.use('/patios', patioRoutes);
+
+const numeradorRoutes = require('../routes/numerador');
+app.use('/numerador', numeradorRoutes);
+
 
 module.exports = app;
